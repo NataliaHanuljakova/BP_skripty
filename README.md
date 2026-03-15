@@ -12,6 +12,11 @@ Vykonáva tieto kroky:
 ## Požiadavky
 
 - Linux alebo cluster s PBS
+- modul fastqc
+- modul python36-modules-gcc
+- modul fastp
+- modul bwa
+- modul samtools
 
 ## Použitie
 
@@ -28,4 +33,9 @@ bash 02_orezavanie_filtrovanie.sh
 - **03 - mapovanie na referenčný genóm GRCh38, zoradenie a indexácia (BWA-MEM, Samtools):**
 ```
 bash 03_mapovanie.sh
+```
+
+- **04 - orezávanie primerov z čítaní po mapovaní (Samtools):**
+```
+bash 04_orezanie_primerov.sh
 ```
