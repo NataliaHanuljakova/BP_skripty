@@ -24,3 +24,8 @@ bash 01_kontrola_kvality.sh
 ```
 bash 02_orezavanie_filtrovanie.sh
 ```
+
+- **03 - mapovanie na referenčný genóm GRCh38, zoradenie a indexácia (BWA-MEM, Samtools):**
+```
+bash 03_mapovanie.sh
+```
