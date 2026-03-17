@@ -9,6 +9,9 @@
 
 set -euo pipefail
 
+# Nacitanie modulov
+module load fastp 
+module load python36-modules-gcc
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
@@ -126,3 +129,7 @@ multiqc "$REPORT_DIR" -o "$REPORT_DIR" 2>&1 | tee -a "$LOG_FILE"
 
 echo "Hotovo, vystupne subory su v priecinku $OUTDIR a $REPORT_DIR"
 echo "Log: $LOG_FILE"
+
+# Upratanie modulov
+module unload fastp 
+module unload python36-modules-gcc
