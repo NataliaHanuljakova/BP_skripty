@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -l
 
 # ========================================================
 # Skript na orezanie primerov po mapovani pomocou Samtools
