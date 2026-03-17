@@ -33,18 +33,28 @@ fi
 source "$CONFIG_FILE"
 
 # Kontrola existencie indexov referencneho genomu pred spustenim
-if [[ ! -f "${REF}.fai" ]]; then
-    echo "Chyba: Chýba index .fai! Spusti: samtools faidx $REF"
+if [[ ! -f "$REF_FASTA" ]]; then
+    echo "Chyba: Referencny genom neexistuje na ceste: $REF_FASTA"
     exit 1
 fi
 
-if [[ ! -f "${REF%.fa}.dict" && ! -f "${REF%.fasta}.dict" ]]; then
-    echo "Chyba: Chýba .dict súbor pre GATK!"
+if [[ ! -f "${REF_FASTA}.bwt" ]]; then
+    echo "Chyba: Chyba BWA index (.bwt) v priečinku s referenciou!"
+    echo "Spusti: bwa index $REF_FASTA"
     exit 1
 fi
 
-if [[ ! -f "${REF}.bwt" ]]; then
-    echo "Chyba: Chýba BWA index (.bwt)! Spusti: bwa index $REF"
+if [[ ! -f "${REF_FASTA}.fai" ]]; then
+    echo "Chyba: Chyba Samtools index (.fai)!"
+    echo "Spusti: samtools faidx $REF_FASTA"
+    exit 1
+fi
+
+# 4. Kontrola GATK Dictionary (.dict)
+DICT_FILE="${REF_FASTA%.*}.dict"
+if [[ ! -f "$DICT_FILE" ]]; then
+    echo "Chyba: Chyba GATK dictionary (.dict)!"
+    echo "Spusti: gatk CreateSequenceDictionary -R $REF_FASTA"
     exit 1
 fi
 
