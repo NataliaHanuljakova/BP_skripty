@@ -32,6 +32,22 @@ fi
 
 source "$CONFIG_FILE"
 
+# Kontrola existencie indexov referencneho genomu pred spustenim
+if [[ ! -f "${REF}.fai" ]]; then
+    echo "Chyba: Chýba index .fai! Spusti: samtools faidx $REF"
+    exit 1
+fi
+
+if [[ ! -f "${REF%.fa}.dict" && ! -f "${REF%.fasta}.dict" ]]; then
+    echo "Chyba: Chýba .dict súbor pre GATK!"
+    exit 1
+fi
+
+if [[ ! -f "${REF}.bwt" ]]; then
+    echo "Chyba: Chýba BWA index (.bwt)! Spusti: bwa index $REF"
+    exit 1
+fi
+
 mkdir -p "$RESULTS_DIR/01_qc" "$RESULTS_DIR/02_fastp" "$RESULTS_DIR/03_mapping" "$RESULTS_DIR/04_primer_trim" "$LOG_DIR"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
