@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -l
 
 # =================================================================================
 # Skript na orezavanie a filtrovanie parovych citani panelu OncoZoom Cancer Hotspot
