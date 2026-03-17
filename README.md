@@ -48,7 +48,7 @@ BP_skripty/
 Poznámka: Na clustri je možné použiť `module load ...`; skripty sa pokúsia moduly načítať, ak je `module` dostupné.
 
 ### Príprava referenčného genómu
-Skripty predpokladajú, že referenčný genóm (`REF_FASTA`) je vopred indexovaný pre `BWA` aj `GATK`. Ak indexy nemáte, vytvorte ich:
+Skripty predpokladajú, že referenčný genóm (`REF_FASTA`) je vopred indexovaný pre `BWA` aj `GATK` a indexy sú uložené v rovnakom priečinku ako referenčný genóm. Ak indexy nemáte, vytvorte ich:
 
 ```bash
 # BWA indexy
