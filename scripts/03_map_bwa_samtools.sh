@@ -7,6 +7,10 @@
 
 set -euo pipefail
 
+# Nacitanie modulov
+module load bwa
+module load samtools
+
 usage() {
     cat <<EOF
 Pouzitie:
@@ -115,3 +119,7 @@ done
 
 echo "Mapovanie hotovo, vystupy su v $OUTDIR"
 echo "Log: $LOG_FILE"
+
+# Upratanie modulov
+module load bwa
+module load samtools
