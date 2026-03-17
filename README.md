@@ -59,6 +59,7 @@ samtools faidx GRCh38.fa
 
 # GATK/Picard dictionary
 gatk CreateSequenceDictionary -R GRCh38.fa
+```
 
 ## Quick start
 
