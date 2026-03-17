@@ -7,9 +7,9 @@ Aktuálne implementované kroky pipeline:
 - **02** orezávanie a filtrovanie čítaní (`fastp`, `MultiQC`)
 - **03** mapovanie na referenčný genóm (`BWA-MEM`, `samtools`)
 - **04** orezanie primerov po mapovaní (`samtools ampliconclip`)
+- **05** kontrola pokrytia cieľových oblastí (`bedtools`)
 
 Plánované rozšírenie:
-- **05** kontrola pokrytia cieľových oblastí
 - **06** variant calling a filtrácia
 
 ## Štruktúra repozitára
@@ -17,23 +17,25 @@ Plánované rozšírenie:
 ```text
 BP_skripty/
 ├── config/
-│   ├── params.env
-│   └── samples.tsv
+│   ├── params.env              # Globálne nastavenia ciest a parametrov
+│   └── samples.tsv             # Definícia vzoriek 
 ├── docs/
-│   └── methodology.md
-├── logs/
-├── results/
-│   ├── 01_qc/
-│   ├── 02_fastp/
-│   ├── 03_mapping/
-│   └── 04_primer_trim/
+│   └── methodology.md          # Detailný popis použitej bioinformatickej metodiky
+├── logs/                       # Logovacie súbory jednotlivých behov pipeline
+├── results/                    # Výstupné dáta organizované podľa krokov
+│   ├── 01_qc/                  # Raw FastQC a MultiQC reporty
+│   ├── 02_fastp/               # Orezané a filtrované FASTQ súbory
+│   ├── 03_mapping/             # Namapované BAM súbory (sorted)
+│   ├── 04_primer_trim/         # BAM súbory po odstránení primerov (trimmed)
+│   └── 05_coverage/            # Metriky pokrytia cielových oblastí (bedtools)
 ├── scripts/
-│   ├── 01_qc_fastqc_multiqc.sh
-│   ├── 02_trim_filter_fastp.sh
-│   ├── 03_map_bwa_samtools.sh
-│   ├── 04_primer_trim_samtools.sh
-│   └── run_pipeline.sh
-└── README.md
+│   ├── 01_qc_fastqc_multiqc.sh # Kontrola kvality surových dát
+│   ├── 02_trim_filter_fastp.sh # Filtering a trimming (fastp)
+│   ├── 03_map_bwa_samtools.sh  # Mapovanie na referenciu (BWA MEM)
+│   ├── 04_primer_trim_samtools.sh # Odstránenie primerov z amplikónov
+│   ├── 05_coverage_metrics.sh  # Výpočet hĺbky pokrytia panelu
+│   └── run_pipeline.sh         # Hlavný riadiaci skript (Master script)
+└── README.md                   # Dokumentácia k repozitáru
 ```
 
 ## Požiadavky
@@ -44,8 +46,7 @@ BP_skripty/
 - `fastp`
 - `bwa`
 - `samtools`
-
-Poznámka: Na clustri je možné použiť `module load ...`; skripty sa pokúsia moduly načítať, ak je `module` dostupné.
+- `bedtools`
 
 ### Príprava referenčného genómu
 Skripty predpokladajú, že referenčný genóm (`REF_FASTA`) je vopred indexovaný pre `BWA` aj `GATK` a indexy sú uložené v rovnakom priečinku ako referenčný genóm. Ak indexy nemáte, vytvorte ich:
@@ -111,6 +112,16 @@ bash scripts/04_primer_trim_samtools.sh \
 	--primer-bed config/primers.bed \
 	--outdir results/04_primer_trim \
 	--threads 4 \
+	--logdir logs
+```
+### 05 kontrola pokrytia cieľových oblastí
+
+```bash
+bash scripts/05_coverage_metrics.sh \
+	--indir results/04_primer_trim \
+	--bed ampInsert.bed \
+	--outdir results/05_coverage \
+	--threads 1 \
 	--logdir logs
 ```
 
