@@ -6,6 +6,9 @@
 
 set -euo pipefail
 
+# Nacitanie modulov
+module load samtools
+
 usage() {
     cat <<EOF
 Pouzitie:
@@ -103,3 +106,6 @@ done
 
 echo "Hotovo, subory su v priecinku $OUTDIR"
 echo "Log: $LOG_FILE"
+
+#Upratanie modulov
+module unload samtools
