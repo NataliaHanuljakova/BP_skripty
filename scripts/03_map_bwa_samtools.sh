@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -l
 
 # ===============================================================
 # Skript na mapovanie citani na referencny genom GRCh38
