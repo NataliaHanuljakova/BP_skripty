@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash -l
 
 # ==================================================================
 # Skript na kontrolu kvality FASTQ suborov pomocou FastQC a MultiQC
