@@ -1,3 +1,5 @@
-sample_id	fastq_r1	fastq_r2
-SAMPLE01	/path/to/SAMPLE01_R1.fastq.gz	/path/to/SAMPLE01_R2.fastq.gz
-SAMPLE02	/path/to/SAMPLE02_R1.fastq.gz	/path/to/SAMPLE02_R2.fastq.gz
+patient_id  sample_id  type
+SP13  SP13_B  normal
+SP13  SP13_T1  tumor
+SP13  SP13_T2  tumor
+SP14  SP14_T  tumor
