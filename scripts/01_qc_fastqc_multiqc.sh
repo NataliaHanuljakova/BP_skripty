@@ -6,6 +6,10 @@
 
 set -euo pipefail
 
+# Nacitanie modulov
+module load fastqc 
+module load python36-modules-gcc
+
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
@@ -87,3 +91,7 @@ multiqc "$OUTDIR" -o "$OUTDIR" 2>&1 | tee -a "$LOG_FILE"
 
 echo "Hotovo, vystupne subory su v priecinku $OUTDIR"
 echo "Log: $LOG_FILE"
+
+# Upratanie modulov
+module unload fastqc
+module unload python36-modules-gcc
