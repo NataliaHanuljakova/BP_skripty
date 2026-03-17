@@ -50,7 +50,6 @@ if [[ ! -f "${REF_FASTA}.fai" ]]; then
     exit 1
 fi
 
-# 4. Kontrola GATK Dictionary (.dict)
 DICT_FILE="${REF_FASTA%.*}.dict"
 if [[ ! -f "$DICT_FILE" ]]; then
     echo "Chyba: Chyba GATK dictionary (.dict)!"
@@ -58,7 +57,13 @@ if [[ ! -f "$DICT_FILE" ]]; then
     exit 1
 fi
 
-mkdir -p "$RESULTS_DIR/01_qc" "$RESULTS_DIR/02_fastp" "$RESULTS_DIR/03_mapping" "$RESULTS_DIR/04_primer_trim" "$LOG_DIR"
+# Kontrola existencie suboru s cielovymi oblastami
+if [[ ! -f "$PANEL_BED" ]]; then
+    echo "Chyba: BED subor s panelom neexistuje: $PANEL_BED"
+    exit 1
+fi
+
+mkdir -p "$RESULTS_DIR/01_qc" "$RESULTS_DIR/02_fastp" "$RESULTS_DIR/03_mapping" "$RESULTS_DIR/04_primer_trim" "$RESULTS_DIR/05_coverage" "$LOG_DIR"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -88,4 +93,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     --threads "$THREADS_TRIM" \
     --logdir "$LOG_DIR"
 
-echo "Pipeline 01-04 uspesne dokoncena."
+"$SCRIPT_DIR/05_coverage_metrics.sh" \
+    --indir "$RESULTS_DIR/04_primer_trim" \
+    --bed "$PANEL_BED" \
+    --outdir "$RESULTS_DIR/05_coverage" \
+    --threads "$THREADS_MAP" \
+    --logdir "$LOG_DIR"
+
+echo "Pipeline 01-05 uspesne dokoncena."
