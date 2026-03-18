@@ -119,11 +119,24 @@ bash scripts/04_primer_trim_samtools.sh \
 ```bash
 bash scripts/05_coverage_metrics.sh \
 	--indir results/04_primer_trim \
-	--bed ampInsert.bed \
+	--bed path/to/ampInsert.bed \
 	--outdir results/05_coverage \
 	--threads 1 \
 	--logdir logs
 ```
+
+### 06 somaticky variant calling
+
+bash scripts/06_variant_calling_mutect2.sh \
+    --indir results/04_primer_trim \
+    --tsv config/samples.tsv \
+    --ref path/to/GRCh38.fa \
+    --bed path/to/ampInsert.bed \
+    --pon path/to/pon.vcf.gz \
+    --gnomad path/to/af-only-gnomad.vcf.gz \
+    --outdir results/06_variant_calling \
+    --threads 4 \
+    --logdir logs
 
 ## Reprodukovateľnosť
 

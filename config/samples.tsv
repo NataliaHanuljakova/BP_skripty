@@ -1,5 +1,8 @@
-patient_id  sample_id  type
-SP13  SP13_B  normal
-SP13  SP13_T1  tumor
-SP13  SP13_T2  tumor
-SP14  SP14_T  tumor
+patient_id	sample_id	type	disease
+OLP1	OLP1	tumor	OLP
+OLP2	OLP2	tumor	OLP
+SP2	SP2_T	tumor	SP
+SP2	SP2_B	normal	SP
+TZ7	TZ7_T	tumor	TZ
+TZ7	TZ7_Trec	tumor	TZ
+TZ7	TZ7_B	normal	TZ

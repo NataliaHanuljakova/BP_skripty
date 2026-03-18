@@ -39,7 +39,7 @@ if [[ ! -f "$REF_FASTA" ]]; then
 fi
 
 if [[ ! -f "${REF_FASTA}.bwt" ]]; then
-    echo "Chyba: Chyba BWA index (.bwt) v priečinku s referenciou!"
+    echo "Chyba: Chyba BWA index (.bwt) v priecinku s referenciou!"
     echo "Spusti: bwa index $REF_FASTA"
     exit 1
 fi
@@ -63,7 +63,18 @@ if [[ ! -f "$PANEL_BED" ]]; then
     exit 1
 fi
 
-mkdir -p "$RESULTS_DIR/01_qc" "$RESULTS_DIR/02_fastp" "$RESULTS_DIR/03_mapping" "$RESULTS_DIR/04_primer_trim" "$RESULTS_DIR/05_coverage" "$LOG_DIR"
+# Kontrola existencie vstupov pre Variant Calling
+if [[ ! -f "$TSV_FILE" ]]; then
+    echo "Chyba: TSV tabulka neexistuje: $TSV_FILE"
+    exit 1
+fi
+
+if [[ ! -f "$PON" || ! -f "$GNOMAD" ]]; then
+    echo "Chyba: Chybaju referencie pre Mutect2 (PON alebo gnomAD)."
+    exit 1
+fi
+
+mkdir -p "$RESULTS_DIR/01_qc" "$RESULTS_DIR/02_fastp" "$RESULTS_DIR/03_mapping" "$RESULTS_DIR/04_primer_trim" "$RESULTS_DIR/05_coverage" "$RESULTS_DIR/06_variant_calling" "$LOG_DIR"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -100,4 +111,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     --threads "$THREADS_MAP" \
     --logdir "$LOG_DIR"
 
-echo "Pipeline 01-05 uspesne dokoncena."
+"$SCRIPT_DIR/06_variant_calling_mutect2.sh" \
+    --indir "$RESULTS_DIR/04_primer_trim" \
+    --tsv "$TSV_FILE" \
+    --ref "$REF_FASTA" \
+    --bed "$PANEL_BED" \
+    --pon "$PON" \
+    --gnomad "$GNOMAD" \
+    --outdir "$RESULTS_DIR/06_variant_calling" \
+    --threads "$THREADS_MUTECT" \
+    --logdir "$LOG_DIR"
+
+
+echo "Pipeline 01-06 uspesne dokoncena."
