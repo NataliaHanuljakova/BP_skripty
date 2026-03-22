@@ -9,6 +9,7 @@ Aktuálne implementované kroky pipeline:
 - **04** orezanie primerov po mapovaní (`samtools ampliconclip`)
 - **05** kontrola pokrytia cieľových oblastí (`bedtools`)
 - **06** somatický variant calling a filtrácia variantov (`gatk`)
+- **07** anotácia variantov (`Ensembl VEP`, `Singularity`)
 
 ## Štruktúra repozitára
 
@@ -25,7 +26,9 @@ BP_skripty/
 │   ├── 02_fastp/               # Orezané a filtrované FASTQ súbory
 │   ├── 03_mapping/             # Namapované BAM súbory (sorted)
 │   ├── 04_primer_trim/         # BAM súbory po odstránení primerov (trimmed)
-│   └── 05_coverage/            # Metriky pokrytia cielových oblastí (bedtools)
+│   ├── 05_coverage/            # Metriky pokrytia cielových oblastí
+│   ├── 06_variant_calling		# VCF súbory
+│   └── 07_annotation			# Anotované TSV súbory, sumárna TSV tabuľka anotovaných variantov
 ├── scripts/
 │   ├── 01_qc_fastqc_multiqc.sh # Kontrola kvality surových dát
 │   ├── 02_trim_filter_fastp.sh # Filtering a trimming (fastp)
@@ -33,7 +36,8 @@ BP_skripty/
 │   ├── 04_primer_trim_samtools.sh # Odstránenie primerov z amplikónov (samtools)
 │   ├── 05_coverage_metrics.sh  # Výpočet hĺbky pokrytia panelu (bedtools)
 │   ├── 06_variant_calling_mutect2.sh  # Volanie variantov a ich filtrácia (gatk)
-│   └── run_pipeline.sh         # Hlavný riadiaci skript (Master script)
+│   ├── 07_variant_annotation_vep.sh # Anotácia pomocou Ensembl VEP (Singularity)
+│   └── run_pipeline.sh         # Hlavný riadiaci skript
 └── README.md                   # Dokumentácia k repozitáru
 ```
 
@@ -47,6 +51,7 @@ BP_skripty/
 - `samtools`
 - `bedtools`
 - `gatk`
+- `singularity` pre beh VEP kontajnera
 
 ### Príprava referenčného genómu
 Skripty predpokladajú, že referenčný genóm (`REF_FASTA`) je vopred indexovaný pre `BWA` aj `GATK` a indexy sú uložené v rovnakom priečinku ako referenčný genóm. Ak indexy nemáte, vytvorte ich:
@@ -63,6 +68,9 @@ gatk CreateSequenceDictionary -R GRCh38.fa
 ```
 ### Príprava panelu normálnych vzoriek
 Táto pipeline predpokladá použitie Panel  of Normals (PoN) na potlačenie technického šumu a artefaktov. Ak si potrebujete vygenerovať vlastný panel z kontrolných vzoriek, môžete postupovať podľa oficiálneho návodu v GATK dokumentácii (https://gatk.broadinstitute.org/hc/en-us/articles/360036348732-CreateSomaticPanelOfNormals-BETA). Odporúča sa použiť aspoň 20 normálnych vzoriek spracovaných rovnakou technológiou a v rovnakom laboratóriu ako vaše vzorky.
+
+### Príprava referenčného genómu
+Pre krok anotácie je potrebné stiahnuť Singularity kontajner pre Ensembl VEP a príslušnú offline cache pamäť pre váš referenčný genóm. Môžete postupovať podľa oficiálneho návodu v dokumentácii Ensembl VEP (https://grch37.ensembl.org/info/docs/tools/vep/script/vep_download.html#singularity).
 
 ## Quick start
 
@@ -138,6 +146,19 @@ bash scripts/06_variant_calling_mutect2.sh \
     --pon path/to/pon.vcf.gz \
     --gnomad path/to/af-only-gnomad.vcf.gz \
     --outdir results/06_variant_calling \
+    --threads 4 \
+    --logdir logs
+```
+
+### 07 anotácia variantov
+
+```bash
+bash scripts/07_annotation_vep.sh \
+    --indir results/06_variant_calling \
+    --vep-image path/to/vep.sif \
+    --vep-dir path/to/.vep \
+    --ref path/to/GRCh38.fa \
+    --outdir results/07_annotation \
     --threads 4 \
     --logdir logs
 ```
