@@ -83,38 +83,38 @@ mkdir -p "$RESULTS_DIR/01_qc" "$RESULTS_DIR/02_fastp" "$RESULTS_DIR/03_mapping" 
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-#"$SCRIPT_DIR/01_qc_fastqc_multiqc.sh" \
-#    --indir "$RAW_FASTQ_DIR" \
-#    --outdir "$RESULTS_DIR/01_qc" \
-#    --logdir "$LOG_DIR"
+"$SCRIPT_DIR/01_qc_fastqc_multiqc.sh" \
+    --indir "$RAW_FASTQ_DIR" \
+    --outdir "$RESULTS_DIR/01_qc" \
+    --logdir "$LOG_DIR"
 
-#"$SCRIPT_DIR/02_trim_filter_fastp.sh" \
-#    --indir "$RAW_FASTQ_DIR" \
-#    --outdir "$RESULTS_DIR/02_fastp" \
-#    --report-dir "$RESULTS_DIR/02_fastp" \
-#    --threads "$THREADS_FASTP" \
-#    --logdir "$LOG_DIR"
+"$SCRIPT_DIR/02_trim_filter_fastp.sh" \
+    --indir "$RAW_FASTQ_DIR" \
+    --outdir "$RESULTS_DIR/02_fastp" \
+    --report-dir "$RESULTS_DIR/02_fastp" \
+    --threads "$THREADS_FASTP" \
+    --logdir "$LOG_DIR"
 
-#"$SCRIPT_DIR/03_map_bwa_samtools.sh" \
-#    --ref-fasta "$REF_FASTA" \
-#    --fastqdir "$RESULTS_DIR/02_fastp" \
-#    --outdir "$RESULTS_DIR/03_mapping" \
-#    --threads "$THREADS_MAP" \
-#    --logdir "$LOG_DIR"
+"$SCRIPT_DIR/03_map_bwa_samtools.sh" \
+    --ref-fasta "$REF_FASTA" \
+    --fastqdir "$RESULTS_DIR/02_fastp" \
+    --outdir "$RESULTS_DIR/03_mapping" \
+    --threads "$THREADS_MAP" \
+    --logdir "$LOG_DIR"
 
-#"$SCRIPT_DIR/04_primer_trim_samtools.sh" \
-#    --indir "$RESULTS_DIR/03_mapping" \
-#    --primer-bed "$PRIMER_BED" \
-#    --outdir "$RESULTS_DIR/04_primer_trim" \
-#    --threads "$THREADS_TRIM" \
-#    --logdir "$LOG_DIR"
+"$SCRIPT_DIR/04_primer_trim_samtools.sh" \
+    --indir "$RESULTS_DIR/03_mapping" \
+    --primer-bed "$PRIMER_BED" \
+    --outdir "$RESULTS_DIR/04_primer_trim" \
+    --threads "$THREADS_TRIM" \
+    --logdir "$LOG_DIR"
 
-#"$SCRIPT_DIR/05_coverage_metrics.sh" \
-#    --indir "$RESULTS_DIR/04_primer_trim" \
-#    --bed "$PANEL_BED" \
-#    --outdir "$RESULTS_DIR/05_coverage" \
-#    --threads "$THREADS_MAP" \
-#    --logdir "$LOG_DIR"
+"$SCRIPT_DIR/05_coverage_metrics.sh" \
+    --indir "$RESULTS_DIR/04_primer_trim" \
+    --bed "$PANEL_BED" \
+    --outdir "$RESULTS_DIR/05_coverage" \
+    --threads "$THREADS_MAP" \
+    --logdir "$LOG_DIR"
 
 "$SCRIPT_DIR/06_variant_calling_mutect2.sh" \
     --indir "$RESULTS_DIR/04_primer_trim" \
