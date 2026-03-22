@@ -69,8 +69,8 @@ gatk CreateSequenceDictionary -R GRCh38.fa
 ### Príprava panelu normálnych vzoriek
 Táto pipeline predpokladá použitie Panel  of Normals (PoN) na potlačenie technického šumu a artefaktov. Ak si potrebujete vygenerovať vlastný panel z kontrolných vzoriek, môžete postupovať podľa oficiálneho návodu v GATK dokumentácii (https://gatk.broadinstitute.org/hc/en-us/articles/360036348732-CreateSomaticPanelOfNormals-BETA). Odporúča sa použiť aspoň 20 normálnych vzoriek spracovaných rovnakou technológiou a v rovnakom laboratóriu ako vaše vzorky.
 
-### Príprava referenčného genómu
-Pre krok anotácie je potrebné stiahnuť Singularity kontajner pre Ensembl VEP a príslušnú offline cache pamäť pre váš referenčný genóm. Môžete postupovať podľa oficiálneho návodu v dokumentácii Ensembl VEP (https://grch37.ensembl.org/info/docs/tools/vep/script/vep_download.html#singularity).
+### Príprava Ensembl VEP
+Pre krok anotácie je potrebné stiahnuť Singularity kontajner pre Ensembl VEP a príslušnú offline cache pamäť pre váš referenčný genóm. Môžete postupovať podľa oficiálneho návodu v dokumentácii Ensembl VEP: [Ensembl VEP Singularity Installation](https://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#singularity)
 
 ## Quick start
 
