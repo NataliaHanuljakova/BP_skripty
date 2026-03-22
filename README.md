@@ -155,8 +155,9 @@ bash scripts/06_variant_calling_mutect2.sh \
 ```bash
 bash scripts/07_annotation_vep.sh \
     --indir results/06_variant_calling \
-    --vep-image path/to/vep.sif \
-    --vep-dir path/to/.vep \
+	--tsv config/samples.tsv \
+    --vep-sif path/to/vep.sif \
+    --vep-cache path/to/.vep \
     --ref path/to/GRCh38.fa \
     --outdir results/07_annotation \
     --threads 4 \
