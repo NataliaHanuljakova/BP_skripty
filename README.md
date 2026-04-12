@@ -168,4 +168,4 @@ bash scripts/07_annotation_vep.sh \
 
 - Každý krok zapisuje log do `logs/`.
 - Skripty kontrolujú povinné vstupy a dostupnosť nástrojov.
-- Metodické odôvodnenie parametrov je v `docs/methodology.md`.
+- Metodické odôvodnenie krokov je v `docs/methodology.md`.
