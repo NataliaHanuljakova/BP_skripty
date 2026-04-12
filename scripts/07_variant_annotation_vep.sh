@@ -24,7 +24,6 @@ Pouzitie:
 EOF
 }
 
-# Inicializacia
 INDIR=""; TSV=""; VEP_SIF=""; VEP_CACHE=""; REF=""; OUTDIR=""; THREADS=4; LOGDIR="logs"
 
 while [[ $# -gt 0 ]]; do
@@ -53,10 +52,8 @@ LOG_FILE="$LOGDIR/${RUN_ID}.log"
 
 if [[ "$(type -t module || true)" != "" ]]; then
     module load bcftools || true
-    # module load singularity || true
 fi
 
-# Kontrola dostupnosti nastrojov
 if ! command -v bcftools >/dev/null 2>&1; then
     echo "Chyba: bcftools nie je dostupny." | tee -a "$LOG_FILE"
     exit 1
@@ -73,7 +70,6 @@ fi
     echo "[INFO] Vlakna (VEP fork): $THREADS"
 } | tee "$LOG_FILE"
 
-# 1. Ziskanie unikatnych pacientov z TSV (vynechame hlavicku)
 PATIENTS=$(awk 'NR>1 {print $1}' "$TSV" | sort -u)
 
 for PATIENT_ID in $PATIENTS; do
@@ -96,45 +92,49 @@ for PATIENT_ID in $PATIENTS; do
         continue
     fi
 
-    # --------------------------------------------------
-    # KROK A: Filtracia len na PASS varianty
-    # --------------------------------------------------
     PASS_VCF="$PATIENT_OUTDIR/${PATIENT_ID}_pass.vcf.gz"
-    bcftools view -f PASS "$INPUT_VCF" -O z -o "$PASS_VCF" 2>> "$LOG_FILE"
+    bcftools view -f PASS "$INPUT_VCF" -O z -o "$PASS_VCF"
+VARIANT_COUNT=$(bcftools view -H "$PASS_VCF" | wc -l)
     
-    # KONTROLA: Zistenie, ci PASS_VCF obsahuje aspon jeden variant
-    if ! zgrep -q -v '^#' "$PASS_VCF"; then
-        echo "[WARN] Ziadne PASS varianty pre pacienta $PATIENT_ID. Preskakujem VEP anotaciu." | tee -a "$LOG_FILE"
+    if [[ "$VARIANT_COUNT" -eq 0 ]]; then
+        echo "[WARN] Pacient $PATIENT_ID nema ziadne PASS varianty. Preskakujem." | tee -a "$LOG_FILE"
         rm -f "$PASS_VCF"
         continue
     fi
 
-    # --------------------------------------------------
-    # KROK B: VEP Anotacia
-    # --------------------------------------------------
-    OUTPUT_TSV="$PATIENT_OUTDIR/${PATIENT_ID}_annotated.tsv"
+    bcftools index -f "$PASS_VCF"
+
+    VAF_MAP="$PATIENT_OUTDIR/${PATIENT_ID}_vaf.map"
+bcftools query -f "%CHROM\t%POS\t%REF\t%ALT\t[%AF]\n" "$PASS_VCF" | \
+awk '{print $1"_"$2"_"$3"/"$4"\t"$5}' > "$VAF_MAP"
+
+    OUTPUT_TSV_RAW="$PATIENT_OUTDIR/${PATIENT_ID}_annotated_raw.tsv"
     
     singularity exec -B /storage "$VEP_SIF" vep \
         --dir_cache "$VEP_CACHE" \
         --fasta "$REF" \
         --input_file "$PASS_VCF" \
-        --output_file "$OUTPUT_TSV" \
+        --output_file "$OUTPUT_TSV_RAW" \
         --cache --offline --assembly GRCh38 --species homo_sapiens \
         --everything --tab --force_overwrite --no_stats \
         --flag_pick \
         --fork "$THREADS" 2>> "$LOG_FILE"
 
-    # Upratovanie po uspesnej anotacii
-    rm "$PASS_VCF"
 
-    echo "[INFO] Pacient $PATIENT_ID uspesne dokonceny." | tee -a "$LOG_FILE"
+    OUTPUT_TSV="$PATIENT_OUTDIR/${PATIENT_ID}_annotated.tsv"
+    echo "[INFO] Pripájam VAF stĺpec pre $PATIENT_ID"
+
+    awk -v map="$VAF_MAP" 'BEGIN {
+        FS=OFS="\t"; 
+        while(getline < map > 0) vaf[$1]=$2 
+    }
+    /^#Uploaded_variation/ { print $0, "VAF_sample"; next }
+    !/^#/ { print $0, (vaf[$1] ? vaf[$1] : "0") }' "$OUTPUT_TSV_RAW" > "$OUTPUT_TSV"
+
+    rm "$PASS_VCF" "${PASS_VCF}.csi" "$VAF_MAP" "$OUTPUT_TSV_RAW"
+
 done
 
-echo "==================================================" | tee -a "$LOG_FILE"
-
-# --------------------------------------------------
-# KROK C: Zlucenie do Master Tabulky
-# --------------------------------------------------
 MASTER_TSV="$OUTDIR/ALL_SAMPLES_master.tsv"
 echo "[INFO] Vytvaram zlucenu tabulku: $MASTER_TSV" | tee -a "$LOG_FILE"
 
