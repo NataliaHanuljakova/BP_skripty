@@ -1,6 +1,3 @@
----
-bibliography: references.bib
----
 
 # Metódy
 
@@ -221,141 +218,81 @@ Dôležitým aspektom anotácie je fakt, že jeden variant môže zasahovať via
 Parameter `--everything` zas umožňuje získať komplexné údaje o variantoch vrátane predikcie ich funkčného dopadu, populačných frekvencií a dostupných klinických anotácií. Štandardným výstupom procesu anotácie pomocou Ensembl VEP je tabuľkový súbory vo formáte TSV (z angl. *Tab-Separated Values*), no je možné získať aj iné formáty ako napríklad VCF (McLaren et al. 2016-6-6).
 
 # Zoznam použitej literatúry
-::: {#refs}
-:::
-
-::: {#ref-fastqc .csl-entry}
 
 Andrews, Simon. 2010. *FastQC: A Quality Control Tool for High Throughput Sequence Data*. [Https://www.bioinformatics.babraham.ac.uk/projects/fastqc/](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/){.uri}. <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>.
-:::
-
-::: {#ref-Au201758 .csl-entry}
 
 Au, Chun Hang, Dona N. Ho, Ava Kwong, Tsun Leung Chan, and Edmond S. K. Ma. 2017-5-8. "BAMClipper: Removing Primers from Alignments to Minimize False-Negative Mutations in Amplicon Next-Generation Sequencing." *Scientific Reports* 7 (1): 1567. <https://doi.org/10.1038/s41598-017-01703-6>.
-:::
 
-::: {#ref-Benjamin861054 .csl-entry}
 
 Benjamin, David, Takuto Sato, Kristian Cibulskis, Gad Getz, Chip Stewart, and Lee Lichtenstein. 2019. "Calling Somatic SNVs and Indels with Mutect2." *bioRxiv*, ahead of print. <https://doi.org/10.1101/861054>.
-:::
 
-::: {#ref-BroadSomatic .csl-entry}
 
 Broad Institute. 2024. *Somatic Short Variant Discovery (SNVs + Indels)*. [Https://gatk.broadinstitute.org/hc/en-us/articles/360035894731-Somatic-short-variant-discovery-SNVs-Indels-](https://gatk.broadinstitute.org/hc/en-us/articles/360035894731-Somatic-short-variant-discovery-SNVs-Indels-){.uri}.
-:::
 
-::: {#ref-Picard2026 .csl-entry}
 
 Broad Institute. 2026. *Picard Tools*. [Http://broadinstitute.github.io/picard](http://broadinstitute.github.io/picard){.uri}.
-:::
 
-::: {#ref-CabelloAguilar2023124 .csl-entry}
 
 Cabello-Aguilar, Simon, Julie A. Vendrell, and Jérôme Solassol. 2023. "A Bioinformatics Toolkit for Next-Generation Sequencing in Clinical Oncology." *Current Issues in Molecular Biology* 45 (12): 9737--52. <https://doi.org/10.3390/cimb45120608>.
-:::
 
-::: {#ref-Chen201891 .csl-entry}
 
 Chen, Shifu, Yanqing Zhou, Yaru Chen, and Jia Gu. 2018. "Fastp: An Ultra-Fast All-in-One FASTQ Preprocessor." *Bioinformatics* 34 (17): i884--90. <https://doi.org/10.1093/bioinformatics/bty560>.
-:::
 
-::: {#ref-Chen20200226 .csl-entry}
 
 Chen, Zixi, Yuchen Yuan, Xiaoshi Chen, et al. 2026. "Systematic Comparison of Somatic Variant Calling Performance Among Different Sequencing Depth and Mutation Frequency." *Scientific Reports* 10 (1): 3501--1. <https://doi.org/10.1038/s41598-020-60559-5>.
-:::
 
-::: {#ref-Cibulskis2013210 .csl-entry}
 
 Cibulskis, Kristian, Michael S Lawrence, Scott L Carter, et al. 2013-2-10. "Sensitive Detection of Somatic Point Mutations in Impure and Heterogeneous Cancer Samples." *Nature Biotechnology* 31 (3): 213--19. <https://doi.org/10.1038/nbt.2514>.
-:::
 
-::: {#ref-Cock20091216 .csl-entry}
 
 Cock, Peter J. A., Christopher J. Fields, Naohisa Goto, Michael L. Heuer, and Peter M. Rice. 2009-12-16. "The Sanger FASTQ File Format for Sequences with Quality Scores, and the Solexa/Illumina FASTQ Variants." *Nucleic Acids Research* 38 (6): 1767--71. <https://doi.org/10.1093/nar/gkp1137>.
-:::
 
-::: {#ref-Danecek201167 .csl-entry}
 
 Danecek, Petr, Adam Auton, Goncalo Abecasis, et al. 2011-6-7. "The Variant Call Format and VCFtools." *Bioinformatics* 27 (15): 2156--58. <https://doi.org/10.1093/bioinformatics/btr330>.
-:::
 
-::: {#ref-10.1093/gigascience/giab008 .csl-entry}
 
 Danecek, Petr, James K Bonfield, Jennifer Liddle, et al. 2021. "[Twelve years of SAMtools and BCFtools]{.nocase}." *GigaScience* 10 (2). <https://doi.org/10.1093/gigascience/giab008>.
-:::
 
-::: {#ref-Ebbert20160701 .csl-entry}
 
 Ebbert, Mark, Mark E. Wadsworth, Lyndsay A. Staley, et al. 2016. "Evaluating the Necessity of PCR Duplicate Removal from Next-Generation Sequencing Data and a Comparison of Approaches." *BMC Bioinformatics* 17 (S7): 239--39. <https://doi.org/10.1186/s12859-016-1097-3>.
-:::
-
-::: {#ref-Ewels2016616 .csl-entry}
 
 Ewels, Philip, Måns Magnusson, Sverker Lundin, and Max Käller. 2016-6-16. "MultiQC: Summarize Analysis Results for Multiple Tools and Samples in a Single Report." *Bioinformatics* 32 (19): 3047--48. <https://doi.org/10.1093/bioinformatics/btw354>.
-:::
 
-::: {#ref-Guo202296 .csl-entry}
 
 Guo, Qingli, Eszter Lakatos, Ibrahim Al Bakir, Kit Curtius, Trevor A. Graham, and Ville Mustonen. 2022-9-6. "The Mutational Signatures of Formalin Fixation on the Human Genome." *Nature Communications* 13 (1). <https://doi.org/10.1038/s41467-022-32041-5>.
-:::
 
-::: {#ref-Jennings2017 .csl-entry}
 
 Jennings, Lawrence J., Maria E. Arcila, Christopher Corless, et al. 2017. "Guidelines for Validation of Next-Generation Sequencing--Based Oncology Panels." *The Journal of Molecular Diagnostics* 19 (3): 341--65. <https://doi.org/10.1016/j.jmoldx.2017.01.011>.
-:::
 
-::: {#ref-DanielCKoboldt20201026 .csl-entry}
 
 Koboldt, Daniel C. 2020. "Best Practices for Variant Calling in Clinical Sequencing." *Genome Medicine* 12 (1): 91--91. <https://doi.org/10.1186/s13073-020-00791-w>.
-:::
 
-::: {#ref-seqera2025 .csl-entry}
 
 Labs, Seqera. 2025. *MultiQC Reports Documentation*. [Https://seqera.io/multiqc/](https://seqera.io/multiqc/){.uri}. <https://docs.seqera.io/multiqc/>.
-:::
-
-::: {#ref-clinvar .csl-entry}
 
 Landrum, Melissa J., Jennifer M. Lee, Mark Benson, et al. 2015-11-17. "ClinVar: Public Archive of Interpretations of Clinically Relevant Variants." *Nucleic Acids Research* 44 (D1): D862--68. <https://doi.org/10.1093/nar/gkv1222>.
-:::
-
-::: {#ref-Larson2023 .csl-entry}
 
 Larson, Nicholas Bradley, Ann L. Oberg, Alex A. Adjei, and Liguo Wang. 2023. "A Clinician's Guide to Bioinformatics for Next-Generation Sequencing." *Journal of Thoracic Oncology* 18 (2): 143--57. <https://doi.org/10.1016/j.jtho.2022.11.006>.
-:::
 
-::: {#ref-li2013aligningsequencereadsclone .csl-entry}
 
 Li, Heng. 2013. *Aligning Sequence Reads, Clone Sequences and Assembly Contigs with BWA-MEM*. [Https://arxiv.org/pdf/1303.3997](https://arxiv.org/pdf/1303.3997){.uri}. <https://arxiv.org/pdf/1303.3997>.
-:::
 
-::: {#ref-McLaren201666 .csl-entry}
 
 McLaren, William, Laurent Gil, Sarah E. Hunt, et al. 2016-6-6. "The Ensembl Variant Effect Predictor." *Genome Biology* 17 (1). <https://doi.org/10.1186/s13059-016-0974-4>.
-:::
 
-::: {#ref-Quinlan2010 .csl-entry}
 
 Quinlan, Aaron R., and Ira M. Hall. 2010. "BEDTools: A Flexible Suite of Utilities for Comparing Genomic Features." *Bioinformatics* 26 (6): 841--42. <https://doi.org/10.1093/bioinformatics/btq033>.
-:::
 
-::: {#ref-SAMv1 .csl-entry}
 
 SAM/BAM Format Specification Working Group. 2024. *Sequence Alignment/Map Format Specification, Version 1.6*. [Https://samtools.github.io/hts-specs/SAMv1.pdf](https://samtools.github.io/hts-specs/SAMv1.pdf){.uri}.
-:::
 
-::: {#ref-VijayaSatya2014 .csl-entry}
 
 Satya, Ravi Vijaya, and John DiCarlo. 2014. "Edge Effects in Calling Variants from Targeted Amplicon Sequencing." *BMC Genomics* 15 (1): 1073. <https://doi.org/10.1186/1471-2164-15-1073>.
-:::
 
-::: {#ref-UMITools2026 .csl-entry}
+
 
 UMI-tools Development Team. 2026. *UMI-Tools Documentation*. [Https://umi-tools.readthedocs.io/en/latest/index.html](https://umi-tools.readthedocs.io/en/latest/index.html){.uri}.
-:::
 
-::: {#ref-Zverinova20211216 .csl-entry}
 
 Zverinova, Stepanka, and Victor Guryev. 2021-12-16. "Variant Calling: Considerations, Practices, and Developments." *Human Mutation* 43 (8): 976--85. <https://doi.org/10.1002/humu.24311>.
-:::
-::::::::::::::::::::::::::::::
+
