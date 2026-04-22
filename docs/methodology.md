@@ -103,7 +103,7 @@ SAM súbory je možné konvertovať do svojej komprimovanej binárnej podoby BAM
 
 Duplicitné čítania môžu viesť k nadhodnoteniu počtu čítaní podporujúcich určitý variant. Ak sa navyše v skorých cykloch PCR objaví chyba, môže sa následne namnožiť do veľkého počtu identických kópií. Toto môže viesť k identifikácii falošných variantov. Deduplikácia teda obmedzuje vplyv týchto artefaktov a prispieva k presnejšiemu odhadu frekvencie genetických variantov (Ebbert et al. 2016).
 
-Pri deduplikácii sa využívajú unikátne molekulárne identifikátory spomenuté v sekcii [\[UMI\]](#UMI){reference-type="ref" reference="UMI"}. Pri absencii UMI sa duplicitné čítania identifikujú len na základe ich mapovania na referenčný genóm. Čítania s rovnakou pozíciou zarovnania a rovnakou orientáciou sa považujú za duplikáty (Zverinova and Guryev 2021-12-16).
+Pri deduplikácii sa využívajú unikátne molekulárne identifikátory spomenuté v sekcii [\[UMI\]](#UMI){reference-type="ref" reference="UMI"}. Pri absencii UMI sa duplicitné čítania identifikujú primárne na základe ich mapovania na referenčný genóm. Čítania s rovnakou pozíciou zarovnania a rovnakou orientáciou sa považujú za duplikáty (Zverinova and Guryev 2021-12-16).
 
 Na deduplikáciu sa bežne využíva balík Samtools (Danecek et al. 2021), ktorý umožňuje identifikovať duplikáty na základe pozície čítaní, alebo balík UMI-tools, ktorý zohľadňuje aj prítomnosť UMI (UMI-tools Development Team 2026).
 
