@@ -1,6 +1,6 @@
 # BP_skripty
 
-Repozitár pre bakalársku prácu: spracovanie NGS dát z panelového sekvenovania.
+Repozitár pre bakalársku prácu: Analýza dat z cíleného sekvenování vybraných onkogenů v tkáni orální sliznice
 
 Aktuálne implementované kroky pipeline:
 - **01** kontrola kvality vstupných FASTQ (`FastQC`, `MultiQC`)
